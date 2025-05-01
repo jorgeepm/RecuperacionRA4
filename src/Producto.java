@@ -1,5 +1,20 @@
 /**
- * Clase que representa un producto dentro de un pedido.
+ * Representa un producto que puede incluirse en un pedido.
+ * <p>
+ * Esta clase encapsula la información básica de un producto, incluyendo
+ * su nombre, precio y categoría. Se considera válida cuando todos los
+ * atributos han sido correctamente asignados.
+ * </p>
+ *
+ * <p>
+ * Ejemplo de uso:
+ * <pre>{@code
+ * Producto p = new Producto("Camiseta", 19.99, "Ropa");
+ * }</pre>
+ * </p>
+ *
+ * @author [Jorge de Pablos]
+ * @version 1.0
  */
 public class Producto {
 
@@ -8,11 +23,12 @@ public class Producto {
     private String categoria;
 
     /**
-     * Constructor completo para crear un producto.
+     * Crea un producto con todos sus atributos definidos.
      *
-     * @param nombre    Nombre del producto.
-     * @param precio    Precio del producto. No debe ser negativo.
-     * @param categoria Categoría a la que pertenece el producto.
+     * @param nombre    el nombre del producto (no debe estar vacío)
+     * @param precio    el precio del producto en euros (no puede ser negativo)
+     * @param categoria la categoría a la que pertenece (no debe estar vacía)
+     * @throws IllegalArgumentException si algún parámetro no cumple los requisitos
      */
     public Producto(String nombre, double precio, String categoria) {
         setNombre(nombre);
@@ -21,15 +37,26 @@ public class Producto {
     }
 
     /**
-     * Constructor vacío necesario para algunos frameworks o serialización.
+     * Constructor vacío útil para frameworks que requieren instanciación sin parámetros.
      */
     public Producto() {
     }
 
+    /**
+     * Obtiene el nombre del producto.
+     *
+     * @return el nombre asignado
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Establece el nombre del producto.
+     *
+     * @param nombre nombre deseado
+     * @throws IllegalArgumentException si el nombre es nulo o vacío
+     */
     public void setNombre(String nombre) {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre no puede ser nulo o vacío");
@@ -37,10 +64,21 @@ public class Producto {
         this.nombre = nombre;
     }
 
+    /**
+     * Devuelve el precio del producto.
+     *
+     * @return el precio en euros
+     */
     public double getPrecio() {
         return precio;
     }
 
+    /**
+     * Establece el precio del producto.
+     *
+     * @param precio nuevo precio
+     * @throws IllegalArgumentException si el precio es negativo
+     */
     public void setPrecio(double precio) {
         if (precio < 0) {
             throw new IllegalArgumentException("El precio no puede ser negativo");
@@ -48,10 +86,21 @@ public class Producto {
         this.precio = precio;
     }
 
+    /**
+     * Obtiene la categoría del producto.
+     *
+     * @return la categoría actual
+     */
     public String getCategoria() {
         return categoria;
     }
 
+    /**
+     * Asigna una categoría al producto.
+     *
+     * @param categoria categoría deseada
+     * @throws IllegalArgumentException si es nula o vacía
+     */
     public void setCategoria(String categoria) {
         if (categoria == null || categoria.trim().isEmpty()) {
             throw new IllegalArgumentException("La categoría no puede ser nula o vacía");
@@ -60,12 +109,12 @@ public class Producto {
     }
 
     /**
-     * Representación en texto del producto.
+     * Devuelve una representación en forma de cadena del producto.
      *
-     * @return una cadena con los datos del producto.
+     * @return representación del producto en formato nombre/precio/categoría
      */
     @Override
     public String toString() {
-        return String.format("Producto[nombre=%s, precio=%.2f, categoría=%s]", nombre, precio, categoria);
+        return String.format("Producto[nombre='%s', precio=%.2f€, categoría='%s']", nombre, precio, categoria);
     }
 }
